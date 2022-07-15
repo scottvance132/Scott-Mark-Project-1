@@ -3,7 +3,6 @@ from model.user import User
 
 
 class UserDao:
-
     def get_all_users(self):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
                              password='mAshgAey208') as conn:
