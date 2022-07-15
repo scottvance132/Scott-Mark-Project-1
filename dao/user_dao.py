@@ -5,7 +5,7 @@ from model.user import User
 class UserDao:
     def get_all_users(self):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
-                             password='mAshgAey208') as conn:
+                             password='@zul@6') as conn:
             with conn.cursor() as cur:
 
                 cur.execute('SELECT * FROM users')
@@ -28,7 +28,7 @@ class UserDao:
 
     def get_user_by_id(self, user_id):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
-                             password='mAshgAey208') as conn:
+                             password='@zul@6') as conn:
             with conn.cursor() as cur:
 
                 cur.execute('SELECT * FROM users WHERE user_id = %s', (user_id,))

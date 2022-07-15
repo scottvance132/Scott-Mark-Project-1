@@ -1,5 +1,6 @@
 class Reimbursement:
-    def __init__(self, amount, submit, resolve, status, r_type, desc, receipt, author, resolver):
+    def __init__(self, reimb_id, amount, submit, resolve, status, r_type, desc, receipt, author, resolver):
+        self.reimb_id = reimb_id
         self.amount = amount
         self.submit = submit
         self.resolve = resolve
@@ -12,6 +13,7 @@ class Reimbursement:
 
     def to_dict(self):
         return {
+            'reimb_id': self.reimb_id,
             'amount': self.amount,
             'submitted': self.submit,
             'resolved': self.resolve,
@@ -24,5 +26,5 @@ class Reimbursement:
         }
 
 
-r1 = Reimbursement(100, '', '', 'pending', 'Food', 'Lobster dinner', '', '1', '')
+r1 = Reimbursement(1, 100, '', '', 'pending', 'Food', 'Lobster dinner', '', '1', '')
 print(r1.to_dict())
