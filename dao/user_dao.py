@@ -27,12 +27,12 @@ class UserDao:
                 print(my_list_of_user_objs)
                 return my_list_of_user_objs
 
-    def get_user_by_id(self, id):
+    def get_user_by_id(self, user_id):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
                              password='mAshgAey208') as conn:
             with conn.cursor() as cur:
 
-                cur.execute('SELECT * FROM users WHERE id = %s', (id,))
+                cur.execute('SELECT * FROM users WHERE user_id = %s', (user_id,))
 
                 c_row = cur.fetchone()
                 if not c_row:
