@@ -15,4 +15,7 @@ class ReimbursementService:
 
         return list(map(lambda x: x.to_dict(), list_of_reimbursement_objects))
 
+    def add_reimbursement_by_user_id(self, reimb_obj):
+        return self.reimbursement_dao.add_reimbursement_by_user_id(reimb_obj).to_dict()
+
 

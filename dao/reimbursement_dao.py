@@ -2,11 +2,12 @@ import psycopg
 from model.reimbursement import Reimbursement
 from model.user import User
 
+
 class ReimbursementDao:
 
     def get_all_reimb_by_user_id(self,reimb_author):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
-                             password='@zul@6') as conn:
+                             password='mAshgAey208') as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM reimbursements WHERE reimb_author = %s", (reimb_author,))
 
@@ -32,7 +33,7 @@ class ReimbursementDao:
 
     def get_all_reimb(self):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
-                             password='@zul@6') as conn:
+                             password='mAshgAey208') as conn:
             with conn.cursor() as cur:
                 cur.execute("SELECT * FROM reimbursements")
 
@@ -55,3 +56,25 @@ class ReimbursementDao:
                     my_list_of_reimbursement_objs.append(my_reimb_obj)
 
                 return my_list_of_reimbursement_objs
+
+    def add_reimbursement_by_user_id(self, reimb_obj):
+        amount_add = reimb_obj.amount
+        type_add = reimb_obj.type
+        desc_add = reimb_obj.desc
+        author_add = reimb_obj.author
+        with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
+                             password='mAshgAey208') as conn:
+            with conn.cursor() as cur:
+
+                cur.execute('INSERT INTO reimbursements (reimbursement_amount, reimb_type, description, reimb_author) '
+                            'VALUES (%s, %s, %s, %s) RETURNING *', (amount_add, type_add, desc_add, author_add,))
+
+                inserted_reimb_row = cur.fetchone()
+
+                conn.commit()
+
+                return Reimbursement(inserted_reimb_row[0], inserted_reimb_row[1], inserted_reimb_row[2],
+                                     inserted_reimb_row[3], inserted_reimb_row[4], inserted_reimb_row[5],
+                                     inserted_reimb_row[6], inserted_reimb_row[7], inserted_reimb_row[8],
+                                     inserted_reimb_row[9])
+
