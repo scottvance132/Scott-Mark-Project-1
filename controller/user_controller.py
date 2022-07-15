@@ -33,6 +33,7 @@ def login():
 
     session['user_info'] = user_dict
 
+    print(session)
     return user_dict, 200
 
 
