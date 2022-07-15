@@ -14,3 +14,8 @@ class UserService:
     def get_user_by_user_id(self, user_id):
         user_obj = self.user_dao.get_user_by_id(user_id)
         return user_obj.to_dict()
+
+    def login(self, username, password):
+        user_obj = self.user_dao.get_user_by_username_and_password(username, password)
+
+        return user_obj.to_dict()

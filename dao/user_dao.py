@@ -46,3 +46,24 @@ class UserDao:
                 role = c_row[6]
 
                 return User(user_id, username, password, first_name, last_name, email, role)
+
+    def get_user_by_username_and_password(self, username, password):
+        with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
+                             password='mAshgAey208') as conn:
+            with conn.cursor() as cur:
+
+                cur.execute('SELECT * FROM users WHERE username = %s AND user_password = %s', (username, password))
+
+                c_row = cur.fetchone()
+                if not c_row:
+                    return None
+
+                user_id = c_row[0]
+                username = c_row[1]
+                password = c_row[2]
+                first_name = c_row[3]
+                last_name = c_row[4]
+                email = c_row[5]
+                role = c_row[6]
+
+                return User(user_id, username, password, first_name, last_name, email, role)
