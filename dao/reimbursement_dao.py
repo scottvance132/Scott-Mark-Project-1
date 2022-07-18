@@ -189,8 +189,9 @@ class ReimbursementDao:
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
                              password='mAshgAey208') as conn:
             with conn.cursor() as cur:
-                cur.execute('UPDATE reimbursements SET status = %s WHERE reimb_id = %s RETURNING *',
-                            (reimb_obj.status, reimb_obj.reimb_id))
+                cur.execute('UPDATE reimbursements SET status = %s, reimb_resolver = %s, resolved = CURRENT_TIMESTAMP'
+                            ' WHERE reimb_id = %s RETURNING *',
+                            (reimb_obj.status, reimb_obj.resolver, reimb_obj.reimb_id))
 
                 conn.commit()
 
