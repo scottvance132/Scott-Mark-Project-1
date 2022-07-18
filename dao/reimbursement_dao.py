@@ -58,60 +58,6 @@ class ReimbursementDao:
 
                 return my_list_of_reimbursement_objs_p
 
-    # def get_all_reimb_by_user_id_approved(self,reimb_author, query):
-    #     with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
-    #                          password='mAshgAey208') as conn:
-    #         with conn.cursor() as cur:
-    #             cur.execute("SELECT * FROM reimbursements WHERE reimb_author = %s AND status = %s", (reimb_author,
-    #                                                                                                  query))
-    #
-    #             my_list_of_reimbursement_objs_a = []
-    #
-    #             for reimb in cur:
-    #                 reimb_id = reimb[0]
-    #                 amount = reimb[1]
-    #                 submitted = reimb[2]
-    #                 resolved = reimb[3]
-    #                 status = reimb[4]
-    #                 type = reimb[5]
-    #                 description = reimb[6]
-    #                 receipt = reimb[7]
-    #                 author = reimb[8]
-    #                 resolver = reimb[9]
-    #
-    #                 my_reimb_obj = Reimbursement(reimb_id, amount, submitted, resolved, status, type, description,
-    #                                              receipt, author, resolver)
-    #                 my_list_of_reimbursement_objs_a.append(my_reimb_obj)
-    #
-    #             return my_list_of_reimbursement_objs_a
-    #
-    # def get_all_reimb_by_user_id_denied(self,reimb_author, query):
-    #     with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
-    #                          password='mAshgAey208') as conn:
-    #         with conn.cursor() as cur:
-    #             cur.execute("SELECT * FROM reimbursements WHERE reimb_author = %s AND status = %s", (reimb_author,
-    #                                                                                                  query))
-    #
-    #             my_list_of_reimbursement_objs_d = []
-    #
-    #             for reimb in cur:
-    #                 reimb_id = reimb[0]
-    #                 amount = reimb[1]
-    #                 submitted = reimb[2]
-    #                 resolved = reimb[3]
-    #                 status = reimb[4]
-    #                 type = reimb[5]
-    #                 description = reimb[6]
-    #                 receipt = reimb[7]
-    #                 author = reimb[8]
-    #                 resolver = reimb[9]
-    #
-    #                 my_reimb_obj = Reimbursement(reimb_id, amount, submitted, resolved, status, type, description,
-    #                                              receipt, author, resolver)
-    #                 my_list_of_reimbursement_objs_d.append(my_reimb_obj)
-    #
-    #             return my_list_of_reimbursement_objs_d
-
     def get_all_reimb(self):
         with psycopg.connect(host="127.0.0.1", port='5432', dbname="prj1", user="postgres",
                              password='mAshgAey208') as conn:

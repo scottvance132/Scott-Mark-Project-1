@@ -1,5 +1,6 @@
 from flask import Blueprint, request, session
 
+from exceptions.invalid_parameter_error import InvalidParameterError
 from model.user import User
 from service.user_service import UserService
 
@@ -24,17 +25,22 @@ def get_user_by_user_id(user_id):
 
 @uc.route('/login', methods=['POST'])
 def login():
-    request_body_dict = request.get_json()
+    try:
+        request_body_dict = request.get_json()
 
-    username = request_body_dict['username']
-    password = request_body_dict['password']
+        username = request_body_dict['username']
+        password = request_body_dict['password']
 
-    user_dict = user_service.login(username, password)
+        user_dict = user_service.login(username, password)
 
-    session['user_info'] = user_dict
+        session['user_info'] = user_dict
 
-    print(session)
-    return user_dict, 200
+        print(session)
+        return user_dict, 200
+    except InvalidParameterError as e:
+        return {
+            "message": str(e)
+        }
 
 
 @uc.route('/loginstatus', methods=['GET'])

@@ -2,6 +2,7 @@ from flask import Blueprint, request, session
 from model.user import User
 from model.reimbursement import Reimbursement
 from service.reimbursement_service import ReimbursementService
+from exceptions.incorrect_user_error import IncorrectUserError
 
 rc = Blueprint('reimbursement_controller', __name__)
 
@@ -12,17 +13,19 @@ reimbursement_service = ReimbursementService()
 def get_all_reimb_by_user_id(user_id):
     args = request.args
     status = args.get('status')
-    # pending = args.get('pending')
-    # approved = args.get('approved')
-    # denied = args.get('denied')
-    if "employee" in session['user_info']['role']:
+    try:
+        if "employee" in session['user_info']['role']:
+            return {
+                "reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id, status)
+            }
+        else:
+            return {
+                "message": "Invalid user role"
+            }, 400
+    except IncorrectUserError as e:
         return {
-            "reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id, status)
+            "message": str(e)
         }
-    else:
-        return {
-            "message": "Invalid user role"
-        }, 400
 # "'{user_info': {'role': 'employee'}}"
 
 

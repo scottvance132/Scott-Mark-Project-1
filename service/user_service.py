@@ -1,4 +1,6 @@
 from dao.user_dao import UserDao
+from utility.password import validate_password
+from exceptions.invalid_parameter_error import InvalidParameterError
 
 
 class UserService:
@@ -16,6 +18,9 @@ class UserService:
         return user_obj.to_dict()
 
     def login(self, username, password):
-        user_obj = self.user_dao.get_user_by_username_and_password(username, password)
+        if not validate_password(password, '$2b$12$.fHBuoYK8Ff8FFWtHVz.M.9YdNaDvNilQCp3zBoopcYEpgtAcnB6W'):
+            raise InvalidParameterError(f"Invalid username and/or password")
 
-        return user_obj.to_dict()
+        else:
+            user_obj = self.user_dao.get_user_by_username(username)
+            return user_obj.to_dict()
