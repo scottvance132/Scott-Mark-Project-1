@@ -46,3 +46,12 @@ def add_reimb_by_author(user_id):
     reimb_obj = Reimbursement(None, reimb_json_dict['reimbursement_amount'], None, None, None, reimb_json_dict['type'],
                               reimb_json_dict['description'], None, reimb_json_dict['author'], None)
     return reimbursement_service.add_reimbursement_by_user_id(reimb_obj), 201
+
+
+@rc.route('/reimbursements/<reimbursement_id>', methods=['PUT'])
+def update_reimbursement(reimbursement_id):
+    reimb_json_dict = request.get_json()
+    return reimbursement_service.update_reimbursement(Reimbursement(reimbursement_id, None, None,
+                                                                    None,
+                                                                    reimb_json_dict['status'], None, None, None, None,
+                                                                    session['user_info']['user_id']))

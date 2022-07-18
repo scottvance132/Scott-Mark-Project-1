@@ -31,4 +31,8 @@ class ReimbursementService:
     def add_reimbursement_by_user_id(self, reimb_obj):
         return self.reimbursement_dao.add_reimbursement_by_user_id(reimb_obj).to_dict()
 
+    def update_reimbursement(self, reimb_obj):
+        # if self.reimbursement_dao.update_reimb(reimb_obj) is None:
+        return self.reimbursement_dao.update_reimb(reimb_obj).to_dict()
+
 
