@@ -10,10 +10,14 @@ reimbursement_service = ReimbursementService()
 
 @rc.route("/users/<user_id>/reimbursements")   # GET /users/<user_id>
 def get_all_reimb_by_user_id(user_id):
-    print(session)
+    args = request.args
+    status = args.get('status')
+    # pending = args.get('pending')
+    # approved = args.get('approved')
+    # denied = args.get('denied')
     if "employee" in session['user_info']['role']:
         return {
-            "reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id)
+            "reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id, status)
         }
     else:
         return {
@@ -24,10 +28,16 @@ def get_all_reimb_by_user_id(user_id):
 
 @rc.route("/reimbursements")
 def get_all_reimb():
-
-    return {
-        "reimbursements": reimbursement_service.get_all_reimb()
-    }
+    args = request.args
+    status = args.get('status')
+    if "finance_manager" in session['user_info']['role']:
+        return {
+            "reimbursements": reimbursement_service.get_all_reimb(status)
+        }
+    else:
+        return {
+            "message": "Invalid user role"
+        }, 400
 
 
 @rc.route('/users/<user_id>/reimbursements', methods=['POST'])
