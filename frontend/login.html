@@ -11,7 +11,8 @@
     <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
     <!-- Bulma Version 0.9.0-->
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    
+    <script defer src="./login.js"></script>
 </head>
 
 <body>
@@ -26,13 +27,13 @@
                         <form>
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="email" placeholder="Your Username" autofocus="">
+                                    <input class="input is-large" type="username" placeholder="Your Username" autofocus="" id="username-input"/>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input class="input is-large" type="password" placeholder="Your Password">
+                                    <input id="password-input" class="input is-large" type="password" placeholder="Your Password"/>
                                 </div>
                             </div>
                             <div class="field">
@@ -41,7 +42,7 @@
                   Remember me
                 </label>
                             </div>
-                            <button class="button is-block is-info is-large is-fullwidth">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                            <button class="button is-block is-info is-large is-fullwidth" id="login-button">Login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
                         </form>
                     </div>
                 </div>
@@ -51,7 +52,7 @@
             <a href="/index.html">Return to Home Page</a>
         </div>
     </section>
-    <script async type="text/javascript" src="../js/bulma.js"></script>
+    
 </body>
 
 </html>

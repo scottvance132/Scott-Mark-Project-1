@@ -28,8 +28,9 @@ def login():
     try:
         request_body_dict = request.get_json()
 
-        username = request_body_dict['username']
-        password = request_body_dict['password']
+        print(request_body_dict)
+        username = request_body_dict.get('username')
+        password = request_body_dict.get('password')
 
         user_dict = user_service.login(username, password)
 
@@ -40,7 +41,7 @@ def login():
     except InvalidParameterError as e:
         return {
             "message": str(e)
-        }
+        }, 400
 
 
 @uc.route('/loginstatus', methods=['GET'])

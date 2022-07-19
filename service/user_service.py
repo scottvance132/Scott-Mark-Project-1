@@ -18,9 +18,9 @@ class UserService:
         return user_obj.to_dict()
 
     def login(self, username, password):
-        if not validate_password(password, '$2b$12$.fHBuoYK8Ff8FFWtHVz.M.9YdNaDvNilQCp3zBoopcYEpgtAcnB6W'):
+        user_obj = self.user_dao.get_user_by_username(username)
+        if not validate_password(password, user_obj.password):
             raise InvalidParameterError(f"Invalid username and/or password")
 
         else:
-            user_obj = self.user_dao.get_user_by_username(username)
             return user_obj.to_dict()

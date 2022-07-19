@@ -9,7 +9,7 @@ if __name__ == '__main__':
     app.secret_key = 'asdfsdDFSDF#$#@$!12312312'
     app.config['SESSION_TYPE'] = 'filesystem'
 
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     Session(app)
 
