@@ -13,19 +13,20 @@ reimbursement_service = ReimbursementService()
 def get_all_reimb_by_user_id(user_id):
     args = request.args
     status = args.get('status')
-    try:
-        if "employee" in session['user_info']['role']:
-            return {
-                "reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id, status)
-            }
-        else:
-            return {
-                "message": "Invalid user role"
-            }, 400
-    except IncorrectUserError as e:
-        return {
-            "message": str(e)
-        }
+    return {"reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id, status)}
+    # try:
+    #     if "employee" in session['user_info']['role']:
+    #         return {
+    #             "reimbursements": reimbursement_service.get_all_reimb_by_user_id(user_id, status)
+    #         }
+    #     else:
+    #         return {
+    #             "message": "Invalid user role"
+    #         }, 400
+    # except IncorrectUserError as e:
+    #     return {
+    #         "message": str(e)
+    #     }
 # "'{user_info': {'role': 'employee'}}"
 
 
