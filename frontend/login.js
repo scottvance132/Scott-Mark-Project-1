@@ -4,7 +4,7 @@ let loginButton = document.getElementById('login-button');
 
 loginButton.addEventListener('click', async (e) => {
     e.preventDefault()
-    console.log('credentials', usernameInput.value, passwordInput.value)
+    // console.log('credentials', usernameInput.value, passwordInput.value)
     let res = await fetch('http://127.0.0.1:8080/login', {
         'credentials': 'include',
         'method': 'POST',

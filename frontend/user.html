@@ -5,28 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
     <script defer src="./user.js"></script>
 </head>
 <body>
-    <p>Hello There!</p>
-    
     <div>
         <label for="logout"></label>
         <button id="logout-button">Logout</button>
     </div>
     <div>
-        <h1>Reimbursements Table</h1>
-        <table>
+        <h1 class="reimb-table"><strong>Reimbursements Table</strong></h1>
+        <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <th>Reimbursement ID</th>
-                    <th>Amount</th>
-                    <th>Submitted by</th>
-                    <th>Resolved by</th>
-                    <th>Status</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                    <th>Receipt</th>
+                    <th scope="col">Reimbursement ID</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Submitted by</th>
+                    <th scope="col">Resolved by</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Receipt</th>
                 </tr>
             </thead>
             <tbody>
