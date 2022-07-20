@@ -1,10 +1,11 @@
 let logoutButton = document.getElementById('logout-button');
-
 let reimbursementTbodyElement = document.getElementById('reimb-table-body');
-
 let addReimbursementButton = document.getElementById('add-reimb-btn');
-
-let username = sessionStorage.getItem('username')
+let username = sessionStorage.getItem('username');
+let dropdownButton = document.getElementById('dropdown-btn');
+let selectedStatus = document.querySelector('#status-select');
+console.log(selectedStatus)
+// console.log(dropdownButton)
 
 // var userID = '<%=session.getAttribute("user_info")%>';
 // alert(userID);
@@ -48,6 +49,29 @@ logoutButton.addEventListener('click', async (e) => {
         window.location.href="./login.html"
     }
 });
+
+var q_status;
+
+selectedStatus.addEventListener('change', (e) => {
+    //e.preventDefault();
+    q_status = e.target.value;
+} )
+
+dropdownButton.addEventListener('click', async (e) => {
+    e.preventDefault()
+    let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements?status=${q_status}`, {
+        'credentials': 'include',
+        'method': 'GET',
+        'headers': {
+            'Content-Type': 'application/json'}});
+    
+    let data = await res.json();
+    console.log(q_status)
+
+    reimbursementTbodyElement.innerHTML = ""
+
+    addReimbursementsToTable(data.reimbursements);
+})
 
 function addReimbursementsToTable(reimb_obj) {
     console.log(typeof(reimb_obj))

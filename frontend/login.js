@@ -21,7 +21,14 @@ loginButton.addEventListener('click', async (e) => {
         let data = await res.json();
         console.log("Logged in!")
         sessionStorage.setItem("username", usernameInput.value)
-        window.location.href="./user.html"
+        //sessionStorage.setItem('role', 'employee')
+        //window.location.href="./user.html"
+        if (sessionStorage.getItem("role") == 'employee') {
+            window.location.href="./user.html"
+        }
+        else if (sessionStorage.getItem("role" == 'finance_manager')) {
+            window.location.href="./finance_manager.html"
+        }
     }
 
     else if (res.status != 200) {
