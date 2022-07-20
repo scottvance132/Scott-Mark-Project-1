@@ -4,11 +4,18 @@ let reimbursementTbodyElement = document.getElementById('reimb-table-body');
 
 let addReimbursementButton = document.getElementById('add-reimb-btn');
 
+let username = sessionStorage.getItem('username')
+
+// var userID = '<%=session.getAttribute("user_info")%>';
+// alert(userID);
+
+// console.log(userID)
+
 document.addEventListener('DOMContentLoaded', async (e) => {
 
     console.log("Hello There")
     try {
-        let res = await fetch(`http://127.0.0.1:8080/users/1/reimbursements`, {
+        let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements`, {
         'credentials': 'include',
         'method': 'GET',
         'headers': {

@@ -20,6 +20,7 @@ loginButton.addEventListener('click', async (e) => {
     if (res.status == 200) {
         let data = await res.json();
         console.log("Logged in!")
+        sessionStorage.setItem("username", usernameInput.value)
         window.location.href="./user.html"
     }
 

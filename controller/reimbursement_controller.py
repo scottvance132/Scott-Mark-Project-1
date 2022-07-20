@@ -58,4 +58,4 @@ def update_reimbursement(reimbursement_id):
     return reimbursement_service.update_reimbursement(Reimbursement(reimbursement_id, None, None,
                                                                     None,
                                                                     reimb_json_dict['status'], None, None, None, None,
-                                                                    session['user_info']['user_id']))
+                                                                    reimb_json_dict['resolver']))

@@ -3,6 +3,7 @@ let amount = document.getElementById('amount');
 let description = document.getElementById('description');
 let author = document.getElementById('author');
 let typeButtons = document.querySelectorAll('input[name="type"]')
+let username = sessionStorage.getItem('username')
 
 
 addButton.addEventListener('click', async (e) => {
@@ -15,7 +16,7 @@ addButton.addEventListener('click', async (e) => {
     }
     e.preventDefault();
     try {
-        let res = await fetch('http://127.0.0.1:8080/users/1/reimbursements', {
+        let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements`, {
             'credentials': 'include',
             'method': 'POST',
             'headers': {
