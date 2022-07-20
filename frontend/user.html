@@ -10,10 +10,7 @@
     <script defer src="./user.js"></script>
 </head>
 <body>
-    <div>
-        <label for="logout"></label>
-        <button id="logout-button">Logout</button>
-    </div>
+    
     <div>
         <h1 class="reimb-table"><strong>Reimbursements Table</strong></h1>
         <table class="table table-dark table-striped">
@@ -21,7 +18,9 @@
                 <tr>
                     <th scope="col">Reimbursement ID</th>
                     <th scope="col">Amount</th>
+                    <th scope="col">Submitted</th>
                     <th scope="col">Submitted by</th>
+                    <th scope="col">Resolved</th>
                     <th scope="col">Resolved by</th>
                     <th scope="col">Status</th>
                     <th scope="col">Type</th>
@@ -32,6 +31,12 @@
             <tbody id="reimb-table-body">
             </tbody>
         </table>
+    </div>
+    <div>
+        <label for="logout"></label>
+        <button id="logout-button">Logout</button>
+        <label for="Add-Reimbursement"></label>
+        <button id="add-reimb-btn">Add New Reimbursement</button>
     </div>
 </body>
 </html>
