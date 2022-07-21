@@ -5,6 +5,8 @@ let username = sessionStorage.getItem('username');
 let dropdownButton = document.getElementById('dropdown-btn');
 let selectedStatus = document.querySelector('#status-select');
 let refreshButton = document.getElementById('refresh-table-btn');
+let updateStatusButton = document.getElementById('update-status-btn')
+updateStatusButton.style.display = 'none'
 console.log(selectedStatus)
 // console.log(dropdownButton)
 
@@ -116,6 +118,13 @@ function addReimbursementsToTable(reimb_obj) {
         descCell.innerHTML = reimb.description
         let receiptCell = document.createElement('td');
         receiptCell.innerHTML = reimb.receipt
+        if (statusCell.innerHTML == 'pending') {
+            updateStatusCell = document.createElement('td');
+            updateStatusCell = updateStatusButton
+            updateStatusButton.style.display = 'block'
+        } else {
+            updateStatusButton.style.display = 'none'
+        };
 
         row.appendChild(idCell);
         row.appendChild(amntCell);
@@ -127,6 +136,7 @@ function addReimbursementsToTable(reimb_obj) {
         row.appendChild(typeCell);
         row.appendChild(descCell);
         row.appendChild(receiptCell);
+        row.appendChild(updateStatusCell);
 
         reimbursementTbodyElement.appendChild(row);
     }
