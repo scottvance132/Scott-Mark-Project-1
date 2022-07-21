@@ -1,6 +1,6 @@
 let logoutButton = document.getElementById('logout-button');
 let reimbursementTbodyElement = document.getElementById('reimb-table-body');
-let addReimbursementButton = document.getElementById('add-reimb-btn');
+let updateReimbursementButton = document.getElementById('update-reimb-btn');
 let username = sessionStorage.getItem('username');
 let dropdownButton = document.getElementById('dropdown-btn');
 let selectedStatus = document.querySelector('#status-select');
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
 
     console.log("Hello There")
     try {
-        let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements`, {
+        let res = await fetch(`http://127.0.0.1:8080/reimbursements`, {
         'credentials': 'include',
         'method': 'GET',
         'headers': {
@@ -60,7 +60,7 @@ selectedStatus.addEventListener('change', (e) => {
 
 dropdownButton.addEventListener('click', async (e) => {
     e.preventDefault()
-    let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements?status=${q_status}`, {
+    let res = await fetch(`http://127.0.0.1:8080/reimbursements?status=${q_status}`, {
         'credentials': 'include',
         'method': 'GET',
         'headers': {
@@ -76,7 +76,7 @@ dropdownButton.addEventListener('click', async (e) => {
 
 refreshButton.addEventListener('click', async (e) => {
     e.preventDefault()
-    let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements`, {
+    let res = await fetch(`http://127.0.0.1:8080/reimbursements`, {
         'credentials': 'include',
         'method': 'GET',
         'headers': {
@@ -88,6 +88,7 @@ refreshButton.addEventListener('click', async (e) => {
     reimbursementTbodyElement.innerHTML = ""
 
     addReimbursementsToTable(data.reimbursements);
+
 })
 
 function addReimbursementsToTable(reimb_obj) {
@@ -131,8 +132,8 @@ function addReimbursementsToTable(reimb_obj) {
     }
 };
 
-addReimbursementButton.addEventListener('click', async (e) => {
+updateReimbursementButton.addEventListener('click', async (e) => {
     e.preventDefault();
 
 
-    window.location.href="./add-reimb.html"});
+    window.location.href="./update-reimb.html"});

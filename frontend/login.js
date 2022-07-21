@@ -20,13 +20,18 @@ loginButton.addEventListener('click', async (e) => {
     if (res.status == 200) {
         let data = await res.json();
         console.log("Logged in!")
+        console.log(data);
+        sessionStorage.setItem("role", data.role)
+        let role = sessionStorage.getItem('role')
+        console.log(role)
         sessionStorage.setItem("username", usernameInput.value)
         //sessionStorage.setItem('role', 'employee')
         //window.location.href="./user.html"
         if (sessionStorage.getItem("role") == 'employee') {
+            
             window.location.href="./user.html"
         }
-        else if (sessionStorage.getItem("role" == 'finance_manager')) {
+        else if (sessionStorage.getItem("role") == ('finance_manager')) {
             window.location.href="./finance_manager.html"
         }
     }

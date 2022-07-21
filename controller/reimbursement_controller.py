@@ -34,14 +34,15 @@ def get_all_reimb_by_user_id(user_id):
 def get_all_reimb():
     args = request.args
     status = args.get('status')
-    if "finance_manager" in session['user_info']['role']:
-        return {
-            "reimbursements": reimbursement_service.get_all_reimb(status)
-        }
-    else:
-        return {
-            "message": "Invalid user role"
-        }, 400
+    return {"reimbursements": reimbursement_service.get_all_reimb(status)}
+    # if "finance_manager" in session['user_info']['role']:
+    #     return {
+    #         "reimbursements": reimbursement_service.get_all_reimb(status)
+    #     }
+    # else:
+    #     return {
+    #         "message": "Invalid user role"
+    #     }, 400
 
 
 @rc.route('/users/<user_id>/reimbursements', methods=['POST'])
