@@ -5,8 +5,6 @@ let username = sessionStorage.getItem('username');
 let dropdownButton = document.getElementById('dropdown-btn');
 let selectedStatus = document.querySelector('#status-select');
 let refreshButton = document.getElementById('refresh-table-btn');
-let updateStatusButton = document.getElementById('update-status-btn')
-updateStatusButton.style.display = 'none'
 console.log(selectedStatus)
 // console.log(dropdownButton)
 
@@ -118,13 +116,17 @@ function addReimbursementsToTable(reimb_obj) {
         descCell.innerHTML = reimb.description
         let receiptCell = document.createElement('td');
         receiptCell.innerHTML = reimb.receipt
-        if (statusCell.innerHTML == 'pending') {
-            updateStatusCell = document.createElement('td');
-            updateStatusCell = updateStatusButton
-            updateStatusButton.style.display = 'block'
-        } else {
-            updateStatusButton.style.display = 'none'
-        };
+        let updateStatusCell = document.createElement('td');
+        if (reimb.status == 'pending') {
+            updateStatusCell.innerHTML = '<div class="form-check form-check-inline">'+
+                                        '<input class="pending-radio" type="radio" name="approved-status" value="approved" value2="'+ reimb.reimb_id+'" />'+
+                                        '<label class="form-check-label" for="approved-status">Approved</label></div>'+
+                                        '<div class="form-check form-check-inline">'+
+                                        '<input class="pending-radio" type="radio" name="denied-status" value="denied" value2="'+ reimb.reimb_id+'"/>'+
+                                        '<label class="form-check-label" for="denied-status">Denied</label></div>'
+                                        
+                                        
+        }
 
         row.appendChild(idCell);
         row.appendChild(amntCell);
@@ -141,9 +143,42 @@ function addReimbursementsToTable(reimb_obj) {
         reimbursementTbodyElement.appendChild(row);
     }
 };
+// <a class="reimb_id" value="'+ reimb.reimb_id+'" href="#">Update Status</a>
+document.addEventListener('click', async (e) => {
+let reimb_id_stored = document.querySelectorAll('.pending-radio')
+for (const a of reimb_id_stored) {
+    console.log(a.getAttribute('value2'))
+    a.addEventListener('change', async () => {
+        
+        try {
+            let res = await fetch(`http://127.0.0.1:8080/reimbursements/${a.getAttribute('value2')}`, {
+                'credentials': 'include',
+                'method': 'PUT',
+                'headers': {
+                    'Content-Type': 'application/json'},
+                    'body': JSON.stringify({
+                        "status": a.value,
+                        "resolver": username
+                    })})
+            if (res.status == 200) {
+                console.log("Updated!")
+                window.location.href="./finance_manager.html"
+            } else {
+                console.log("Not 201");
+            }
+            
+            // let data = await res.json();
+    
+            // addReimbursement(data);
+            
+        } catch(err) {
+            console.log(err);
+        }
+    })
+}})
 
-updateReimbursementButton.addEventListener('click', async (e) => {
-    e.preventDefault();
+// updateReimbursementButton.addEventListener('click', async (e) => {
+//     e.preventDefault();
 
 
-    window.location.href="./update-reimb.html"});
+//     window.location.href="./update-reimb.html"});

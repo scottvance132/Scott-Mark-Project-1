@@ -1,7 +1,7 @@
 let addButton = document.getElementById("submit-btn");
 let amount = document.getElementById('amount');
 let description = document.getElementById('description');
-let author = document.getElementById('author');
+// let author = document.getElementById('author');
 let typeButtons = document.querySelectorAll('input[name="type"]')
 let username = sessionStorage.getItem('username')
 
@@ -25,7 +25,7 @@ addButton.addEventListener('click', async (e) => {
                     "reimbursement_amount": amount.value,
                     "type": selectedTypeButton.value,
                     "description": description.value,
-                    "author": author.value
+                    "author": username
                 })})
         if (res.status == 201) {
             window.location.href="./user.html"
