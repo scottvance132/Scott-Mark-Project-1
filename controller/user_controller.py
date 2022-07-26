@@ -1,7 +1,6 @@
 from flask import Blueprint, request, session
 
 from exceptions.invalid_parameter_error import InvalidParameterError
-from model.user import User
 from service.user_service import UserService
 
 

@@ -1,7 +1,4 @@
-from flask import session
 from dao.reimbursement_dao import ReimbursementDao
-from exceptions.incorrect_user_error import IncorrectUserError
-from model.user import User
 from dao.user_dao import UserDao
 
 
@@ -29,8 +26,8 @@ class ReimbursementService:
         if query_1 is not None:
             return list(map(lambda x: x.to_dict(), self.reimbursement_dao.get_all_reimb_status(query_1)))
 
-    def add_reimbursement_by_user_id(self, reimb_obj):
-        return self.reimbursement_dao.add_reimbursement_by_user_id(reimb_obj).to_dict()
+    def add_reimbursement_by_user_id(self, reimb_obj, receipt):
+        return self.reimbursement_dao.add_reimbursement_by_user_id(reimb_obj, receipt).to_dict()
 
     def update_reimbursement(self, reimb_obj):
         # if self.reimbursement_dao.update_reimb(reimb_obj) is None:

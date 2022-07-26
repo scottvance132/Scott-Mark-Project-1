@@ -1,8 +1,6 @@
-from flask import Blueprint, request, session
-from model.user import User
+from flask import Blueprint, request
 from model.reimbursement import Reimbursement
 from service.reimbursement_service import ReimbursementService
-from exceptions.incorrect_user_error import IncorrectUserError
 
 rc = Blueprint('reimbursement_controller', __name__)
 
@@ -47,10 +45,18 @@ def get_all_reimb():
 
 @rc.route('/users/<user_id>/reimbursements', methods=['POST'])
 def add_reimb_by_author(user_id):
-    reimb_json_dict = request.get_json()
-    reimb_obj = Reimbursement(None, reimb_json_dict['reimbursement_amount'], None, None, None, reimb_json_dict['type'],
-                              reimb_json_dict['description'], None, reimb_json_dict['author'], None)
-    return reimbursement_service.add_reimbursement_by_user_id(reimb_obj), 201
+    print(request.files)
+    print(request.files['receipt'])
+    receipt = request.files['receipt']
+    amount = request.form.get('reimbursement_amount', None)
+    description = request.form.get('description', None)
+    r_type = request.form.get('type', None)
+    author = request.form.get('author', None)
+
+    print(receipt)
+    # reimb_json_dict = request.get_json()
+    reimb_obj = Reimbursement(None, amount, None, None, None, r_type, description, receipt, author, None)
+    return reimbursement_service.add_reimbursement_by_user_id(reimb_obj, receipt), 201
 
 
 @rc.route('/reimbursements/<reimbursement_id>', methods=['PUT'])

@@ -1,6 +1,5 @@
 import psycopg
 from model.reimbursement import Reimbursement
-from model.user import User
 
 
 class ReimbursementDao:
@@ -14,6 +13,7 @@ class ReimbursementDao:
                 my_list_of_reimbursement_objs = []
 
                 for reimb in cur:
+                    open('frontend/receipts/' + str(reimb[0]) + '.jpeg', 'wb').write(reimb[7])
                     reimb_id = reimb[0]
                     amount = reimb[1]
                     submitted = reimb[2]
@@ -21,7 +21,7 @@ class ReimbursementDao:
                     status = reimb[4]
                     type = reimb[5]
                     description = reimb[6]
-                    receipt = reimb[7]
+                    receipt = '/receipts/' + str(reimb[0]) + '.jpeg'
                     author = reimb[8]
                     resolver = reimb[9]
 
@@ -41,6 +41,7 @@ class ReimbursementDao:
                 my_list_of_reimbursement_objs_p = []
 
                 for reimb in cur:
+                    open('frontend/receipts/' + str(reimb[0]) + '.jpeg', 'wb').write(reimb[7])
                     reimb_id = reimb[0]
                     amount = reimb[1]
                     submitted = reimb[2]
@@ -48,7 +49,7 @@ class ReimbursementDao:
                     status = reimb[4]
                     type = reimb[5]
                     description = reimb[6]
-                    receipt = reimb[7]
+                    receipt = '/receipts/' + str(reimb[0]) + '.jpeg'
                     author = reimb[8]
                     resolver = reimb[9]
 
@@ -67,6 +68,7 @@ class ReimbursementDao:
                 my_list_of_reimbursement_objs = []
 
                 for reimb in cur:
+                    open('frontend/receipts/' + str(reimb[0]) + '.jpeg', 'wb').write(reimb[7])
                     reimb_id = reimb[0]
                     amount = reimb[1]
                     submitted = reimb[2]
@@ -74,7 +76,7 @@ class ReimbursementDao:
                     status = reimb[4]
                     type = reimb[5]
                     description = reimb[6]
-                    receipt = reimb[7]
+                    receipt = '/receipts/' + str(reimb[0]) + '.jpeg'
                     author = reimb[8]
                     resolver = reimb[9]
 
@@ -93,6 +95,7 @@ class ReimbursementDao:
                 my_list_of_reimbursement_objs = []
 
                 for reimb in cur:
+                    open('frontend/receipts/' + str(reimb[0]) + '.jpeg', 'wb').write(reimb[7])
                     reimb_id = reimb[0]
                     amount = reimb[1]
                     submitted = reimb[2]
@@ -100,7 +103,7 @@ class ReimbursementDao:
                     status = reimb[4]
                     type = reimb[5]
                     description = reimb[6]
-                    receipt = reimb[7]
+                    receipt = '/receipts/' + str(reimb[0]) + '.jpeg'
                     author = reimb[8]
                     resolver = reimb[9]
 
@@ -110,7 +113,8 @@ class ReimbursementDao:
 
                 return my_list_of_reimbursement_objs
 
-    def add_reimbursement_by_user_id(self, reimb_obj):
+    def add_reimbursement_by_user_id(self, reimb_obj, receipt):
+        file = receipt.read()
         amount_add = reimb_obj.amount
         type_add = reimb_obj.type
         desc_add = reimb_obj.desc
@@ -119,8 +123,9 @@ class ReimbursementDao:
                              password='mAshgAey208') as conn:
             with conn.cursor() as cur:
 
-                cur.execute('INSERT INTO reimbursements (reimbursement_amount, reimb_type, description, reimb_author) '
-                            'VALUES (%s, %s, %s, %s) RETURNING *', (amount_add, type_add, desc_add, author_add,))
+                cur.execute('INSERT INTO reimbursements (reimbursement_amount, reimb_type, description, receipt, '
+                            'reimb_author) VALUES (%s, %s, %s, %s, %s) RETURNING *',
+                            (amount_add, type_add, desc_add, file, author_add))
 
                 inserted_reimb_row = cur.fetchone()
 
@@ -128,7 +133,7 @@ class ReimbursementDao:
 
                 return Reimbursement(inserted_reimb_row[0], inserted_reimb_row[1], inserted_reimb_row[2],
                                      inserted_reimb_row[3], inserted_reimb_row[4], inserted_reimb_row[5],
-                                     inserted_reimb_row[6], inserted_reimb_row[7], inserted_reimb_row[8],
+                                     inserted_reimb_row[6], None, inserted_reimb_row[8],
                                      inserted_reimb_row[9])
 
     def update_reimb(self, reimb_obj):

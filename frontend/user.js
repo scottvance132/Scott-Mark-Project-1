@@ -13,6 +13,8 @@ console.log(selectedStatus)
 
 // console.log(userID)
 
+
+
 document.addEventListener('DOMContentLoaded', async (e) => {
 
     console.log("Hello There")
@@ -23,11 +25,11 @@ document.addEventListener('DOMContentLoaded', async (e) => {
         'headers': {
             'Content-Type': 'application/json'}});
         
-
         let data = await res.json();
         console.log(data)
 
-        addReimbursementsToTable(data.reimbursements);
+        addReimbursementsToTable(data.reimbursements)
+        localStorage.setItem('table_data', data.reimbursements);
     } catch(err) {
         console.log(err);
     }
@@ -71,11 +73,11 @@ dropdownButton.addEventListener('click', async (e) => {
 
     reimbursementTbodyElement.innerHTML = ""
 
-    addReimbursementsToTable(data.reimbursements);
+    localStorage.getItem('table-data');
 })
 
 refreshButton.addEventListener('click', async (e) => {
-    e.preventDefault()
+    //e.preventDefault()
     let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements`, {
         'credentials': 'include',
         'method': 'GET',
@@ -114,7 +116,10 @@ function addReimbursementsToTable(reimb_obj) {
         let descCell = document.createElement('td');
         descCell.innerHTML = reimb.description
         let receiptCell = document.createElement('td');
-        receiptCell.innerHTML = reimb.receipt
+        let anchorCell = document.createElement('a');
+        anchorCell.setAttribute('href', reimb.receipt);
+        anchorCell.innerText = 'receipt';
+        receiptCell.appendChild(anchorCell);
 
         row.appendChild(idCell);
         row.appendChild(amntCell);
