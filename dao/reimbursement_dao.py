@@ -154,6 +154,6 @@ class ReimbursementDao:
 
                 return Reimbursement(updated_reimb_row[0], updated_reimb_row[1], updated_reimb_row[2],
                                      updated_reimb_row[3], updated_reimb_row[4], updated_reimb_row[5],
-                                     updated_reimb_row[6], updated_reimb_row[7], updated_reimb_row[8],
+                                     updated_reimb_row[6], None, updated_reimb_row[8],
                                      updated_reimb_row[9])
 

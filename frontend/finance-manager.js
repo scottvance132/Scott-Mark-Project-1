@@ -115,7 +115,10 @@ function addReimbursementsToTable(reimb_obj) {
         let descCell = document.createElement('td');
         descCell.innerHTML = reimb.description
         let receiptCell = document.createElement('td');
-        receiptCell.innerHTML = reimb.receipt
+        let anchorCell = document.createElement('a');
+        anchorCell.setAttribute('href', reimb.receipt);
+        anchorCell.innerText = 'receipt';
+        receiptCell.appendChild(anchorCell);
         let updateStatusCell = document.createElement('td');
         if (reimb.status == 'pending') {
             updateStatusCell.innerHTML = '<div class="form-check form-check-inline">'+
