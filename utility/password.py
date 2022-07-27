@@ -5,7 +5,7 @@ def hash_registering_password(pword):
     return bcrypt.hashpw(pword.encode('utf-8'), bcrypt.gensalt())
 
 
-password = 'P@ssw0rd'
+password = 'password'
 print(hash_registering_password(password))
 
 

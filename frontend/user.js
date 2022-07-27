@@ -73,7 +73,7 @@ dropdownButton.addEventListener('click', async (e) => {
 
     reimbursementTbodyElement.innerHTML = ""
 
-    localStorage.getItem('table-data');
+    addReimbursementsToTable(data.reimbursements);
 })
 
 refreshButton.addEventListener('click', async (e) => {
