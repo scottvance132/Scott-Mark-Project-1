@@ -4,6 +4,7 @@ let loginButton = document.getElementById('login-button');
 
 loginButton.addEventListener('click', async (e) => {
     e.preventDefault()
+    try {
     // console.log('credentials', usernameInput.value, passwordInput.value)
     let res = await fetch('http://127.0.0.1:8080/login', {
         'credentials': 'include',
@@ -34,11 +35,15 @@ loginButton.addEventListener('click', async (e) => {
         else if (sessionStorage.getItem("role") == ('finance_manager')) {
             window.location.href="./finance_manager.html"
         }
+    } else if (res.status != 200) {
+        let err = await res.json();
+        console.log(err);
+        alert(err.message);
     }
-
-    else if (res.status != 200) {
-        console.log("Unsuccessful login")
+    } catch(err) {
+        alert(err) 
     }
+}
 
 
-});
+);

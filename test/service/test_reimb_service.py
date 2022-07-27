@@ -209,7 +209,7 @@ def test_add_reimbursement_by_user_id_negative_amount_not_numeric(mocker):
 
 def test_add_reimbursement_by_user_id_negative_desc_none(mocker):
 
-    reimb_obj_to_add = Reimbursement(2, 12, '2022-07-26 13:49:50.507', None, 'approved', 'Lodging', None, 'receipt.jpeg', 'joey21', None)
+    reimb_obj_to_add = Reimbursement(2, 12, '2022-07-26 13:49:50.507', None, 'approved', 'Lodging', '', 'receipt.jpeg', 'joey21', None)
 
     def mock_add_reimbursement_by_user_id(self, reimb_obj, receipt):
         if reimb_obj == reimb_obj_to_add:

@@ -32,14 +32,34 @@ def test_login_positive(mocker):
     }
 
 
-def test_login_negative(mocker):
+def test_login_negative_username(mocker):
     # Arrange
     def mock_get_user_by_username(self, username):
         if username == 'joebob':
             return User(1, 'joebob', '$2b$12$S8F5dyJ1qrAjNpVaiLhmcuqDR0U1Ma9F/2oVdtJGEepO4w/wQ626u', 'Joe', 'Bob',
                         'joebob@email.com', 'employee')
         else:
-            return UserNotFoundError
+            return None
+
+    mocker.patch('dao.user_dao.UserDao.get_user_by_username', mock_get_user_by_username)
+
+    user_service = UserService()
+
+    # Act
+    with pytest.raises(InvalidParameterError) as excinfo:
+        actual = user_service.login('joadfdbob', 'password1')
+
+    assert str(excinfo.value) == "Invalid username and/or password"
+
+
+def test_login_negative_password(mocker):
+    # Arrange
+    def mock_get_user_by_username(self, username):
+        if username == 'joebob':
+            return User(1, 'joebob', '$2b$12$S8F5dyJ1qrAjNpVaiLhmcuqDR0U1Ma9F/2oVdtJGEepO4w/wQ626u', 'Joe', 'Bob',
+                        'joebob@email.com', 'employee')
+        else:
+            return InvalidParameterError
 
     mocker.patch('dao.user_dao.UserDao.get_user_by_username', mock_get_user_by_username)
 

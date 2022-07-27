@@ -47,8 +47,10 @@ def get_all_reimb():
 
 @rc.route('/users/<user_id>/reimbursements', methods=['POST'])
 def add_reimb_by_author(user_id):
-    print(request.files)
-    print(request.files['receipt'])
+    # print(request.files)
+    # print(request.files['receipt'])
+    # if request.files['receipt'] is None:
+    #     raise InvalidParameterError(f"The reimbursement receipt must not be blank!")
     receipt = request.files['receipt']
     amount = request.form.get('reimbursement_amount', None)
     description = request.form.get('description', None)
@@ -64,6 +66,7 @@ def add_reimb_by_author(user_id):
         return {
             "message": str(e)
         }
+
 
 @rc.route('/reimbursements/<reimbursement_id>', methods=['PUT'])
 def update_reimbursement(reimbursement_id):

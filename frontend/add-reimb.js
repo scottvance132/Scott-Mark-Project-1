@@ -41,6 +41,9 @@ addButton.addEventListener('click', async (e) => {
     formData.append("type", selectedTypeButton.value)
     formData.append("author", username)
     console.log(...formData);
+    if (!receipt.files[0]) {
+        alert("You must upload an image of your receipt!")
+    } else {
     try {
         let res = await fetch(`http://127.0.0.1:8080/users/${username}/reimbursements`, {
             'credentials': 'include',
@@ -52,7 +55,9 @@ addButton.addEventListener('click', async (e) => {
         if (res.status == 201) {
             window.location.href="./user.html"
         } else {
+            let err = await res.json();
             console.log("Not 201");
+            alert(err.message);
         }
         
         // let data = await res.json();
@@ -61,7 +66,8 @@ addButton.addEventListener('click', async (e) => {
         
     } catch(err) {
         console.log(err);
-    }
+        alert(err.message);
+    }}
 });
 
 // function addReimbursement(reimb) {

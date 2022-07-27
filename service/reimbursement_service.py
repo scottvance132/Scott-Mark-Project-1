@@ -32,7 +32,7 @@ class ReimbursementService:
             raise InvalidParameterError(f"The reimbursement amount must not be blank!")
         if not str(reimb_obj.amount).isnumeric():
             raise InvalidParameterError(f"The reimbursement amount must be an integer!")
-        if reimb_obj.desc is None:
+        if reimb_obj.desc is '':
             raise InvalidParameterError(f"The reimbursement description must not be blank!")
         if reimb_obj.receipt is None:
             raise InvalidParameterError(f"The reimbursement receipt must not be blank!")

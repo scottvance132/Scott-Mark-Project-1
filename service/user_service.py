@@ -19,7 +19,10 @@ class UserService:
 
     def login(self, username, password):
         user_obj = self.user_dao.get_user_by_username(username)
-        if not validate_password(password, user_obj.password):
+        if user_obj is None:
+            raise InvalidParameterError(f"Invalid username and/or password")
+
+        elif not validate_password(password, user_obj.password):
             raise InvalidParameterError(f"Invalid username and/or password")
 
         else:
