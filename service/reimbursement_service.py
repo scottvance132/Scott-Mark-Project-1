@@ -1,5 +1,6 @@
 from dao.reimbursement_dao import ReimbursementDao
 from dao.user_dao import UserDao
+from exceptions.invalid_parameter_error import InvalidParameterError
 
 
 class ReimbursementService:
@@ -27,7 +28,18 @@ class ReimbursementService:
             return list(map(lambda x: x.to_dict(), self.reimbursement_dao.get_all_reimb_status(query_1)))
 
     def add_reimbursement_by_user_id(self, reimb_obj, receipt):
-        return self.reimbursement_dao.add_reimbursement_by_user_id(reimb_obj, receipt).to_dict()
+        if reimb_obj.amount is None:
+            raise InvalidParameterError(f"The reimbursement amount must not be blank!")
+        if not str(reimb_obj.amount).isnumeric():
+            raise InvalidParameterError(f"The reimbursement amount must be an integer!")
+        if reimb_obj.desc is None:
+            raise InvalidParameterError(f"The reimbursement description must not be blank!")
+        if reimb_obj.receipt is None:
+            raise InvalidParameterError(f"The reimbursement receipt must not be blank!")
+        if reimb_obj.type is None:
+            raise InvalidParameterError(f"The reimbursement type must not be blank!")
+        else:
+            return self.reimbursement_dao.add_reimbursement_by_user_id(reimb_obj, receipt).to_dict()
 
     def update_reimbursement(self, reimb_obj):
         # if self.reimbursement_dao.update_reimb(reimb_obj) is None:

@@ -1,4 +1,6 @@
 from flask import Blueprint, request
+
+from exceptions.invalid_parameter_error import InvalidParameterError
 from model.reimbursement import Reimbursement
 from service.reimbursement_service import ReimbursementService
 
@@ -55,9 +57,13 @@ def add_reimb_by_author(user_id):
 
     print(receipt)
     # reimb_json_dict = request.get_json()
-    reimb_obj = Reimbursement(None, amount, None, None, None, r_type, description, receipt, author, None)
-    return reimbursement_service.add_reimbursement_by_user_id(reimb_obj, receipt), 201
-
+    try:
+        reimb_obj = Reimbursement(None, amount, None, None, None, r_type, description, receipt, author, None)
+        return reimbursement_service.add_reimbursement_by_user_id(reimb_obj, receipt), 201
+    except InvalidParameterError as e:
+        return {
+            "message": str(e)
+        }
 
 @rc.route('/reimbursements/<reimbursement_id>', methods=['PUT'])
 def update_reimbursement(reimbursement_id):
